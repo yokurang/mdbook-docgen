@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>03 – Key Sequence Flows - System Design Docs</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">System Design Docs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="03--key-sequence-flows"><a class="header" href="#03--key-sequence-flows">03 – Key Sequence Flows</a></h1>
+<p>Integer faucibus lup surm arcu, vel sagittis est porta sed.<br />
+Nullam dignissim, justo sed facilisis volutpat, dolor turpis dictum est.</p>
+<pre class="mermaid">sequenceDiagram
+    actor User
+    participant FE as Frontend
+    participant BE as Backend
+    participant DB as Database
+
+    User-&gt;&gt;FE: Click “Pay”
+    FE-&gt;&gt;BE: POST /payments
+    BE-&gt;&gt;DB: INSERT payment
+    DB--&gt;&gt;BE: OK
+    BE--&gt;&gt;FE: 201 Created
+    FE--&gt;&gt;User: Payment confirmed
+</pre>
+<p><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgZGF0YS1kaWFncmFtLXR5cGU9IlNFUVVFTkNFIiBoZWlnaHQ9IjMyMHB4IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBzdHlsZT0id2lkdGg6NDc5cHg7aGVpZ2h0OjMyMHB4O2JhY2tncm91bmQ6I0ZGRkZGRjsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQ3OSAzMjAiIHdpZHRoPSI0NzlweCIgem9vbUFuZFBhbj0ibWFnbmlmeSI+PHRpdGxlPlJlZnVuZCB3b3JrZmxvdzwvdGl0bGU+PGRlZnMvPjxnPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iYm9sZCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIxMjMuNTY2NCIgeD0iMTc2LjcxNzgiIHk9IjI4LjUzNTIiPlJlZnVuZCB3b3JrZmxvdzwvdGV4dD48Zz48dGl0bGU+Q2xpZW50IEFwcDwvdGl0bGU+PHJlY3QgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAwMDAwIiBoZWlnaHQ9IjEzNy4yNDIyIiB3aWR0aD0iOCIgeD0iNDMuNjA4NCIgeT0iMTA0Ljk3NjYiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTtzdHJva2UtZGFzaGFycmF5OjUuMCw1LjA7IiB4MT0iNDciIHgyPSI0NyIgeTE9IjEwNC45NzY2IiB5Mj0iMjQyLjIxODgiLz48L2c+PGc+PHRpdGxlPlBheW1lbnRzLXN2YzwvdGl0bGU+PHJlY3QgZmlsbD0iIzAwMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjAwMDAwIiBoZWlnaHQ9IjEzNy4yNDIyIiB3aWR0aD0iOCIgeD0iMTUyLjcwNTEiIHk9IjEwNC45NzY2Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7c3Ryb2tlLWRhc2hhcnJheTo1LjAsNS4wOyIgeDE9IjE1Ni41MiIgeDI9IjE1Ni41MiIgeTE9IjEwNC45NzY2IiB5Mj0iMjQyLjIxODgiLz48L2c+PGc+PHRpdGxlPlBheW1lbnRzLURCPC90aXRsZT48cmVjdCBmaWxsPSIjMDAwMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDAwMDAiIGhlaWdodD0iMTM3LjI0MjIiIHdpZHRoPSI4IiB4PSIyODcuNzc2NCIgeT0iMTA0Ljk3NjYiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTtzdHJva2UtZGFzaGFycmF5OjUuMCw1LjA7IiB4MT0iMjkxLjA5ODYiIHgyPSIyOTEuMDk4NiIgeTE9IjEwNC45NzY2IiB5Mj0iMjQyLjIxODgiLz48L2c+PGc+PHRpdGxlPk5vdGlmaWNhdGlvbi1zdmM8L3RpdGxlPjxyZWN0IGZpbGw9IiMwMDAwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMDAwMCIgaGVpZ2h0PSIxMzcuMjQyMiIgd2lkdGg9IjgiIHg9IjQwNy43MjgiIHk9IjEwNC45NzY2Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7c3Ryb2tlLWRhc2hhcnJheTo1LjAsNS4wOyIgeDE9IjQxMS40NTQxIiB4Mj0iNDExLjQ1NDEiIHkxPSIxMDQuOTc2NiIgeTI9IjI0Mi4yMTg4Ii8+PC9nPjxnIGNsYXNzPSJwYXJ0aWNpcGFudCBwYXJ0aWNpcGFudC1oZWFkIiBkYXRhLXBhcnRpY2lwYW50PSJDIj48cmVjdCBmaWxsPSIjRTJFMkYwIiBoZWlnaHQ9IjMwLjQ4ODMiIHJ4PSIyLjUiIHJ5PSIyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9Ijg1LjIxNjgiIHg9IjUiIHk9IjczLjQ4ODMiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3MS4yMTY4IiB4PSIxMiIgeT0iOTQuMDIzNCI+Q2xpZW50IEFwcDwvdGV4dD48L2c+PGcgY2xhc3M9InBhcnRpY2lwYW50IHBhcnRpY2lwYW50LXRhaWwiIGRhdGEtcGFydGljaXBhbnQ9IkMiPjxyZWN0IGZpbGw9IiNFMkUyRjAiIGhlaWdodD0iMzAuNDg4MyIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iODUuMjE2OCIgeD0iNSIgeT0iMjQxLjIxODgiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI3MS4yMTY4IiB4PSIxMiIgeT0iMjYxLjc1MzkiPkNsaWVudCBBcHA8L3RleHQ+PC9nPjxnIGNsYXNzPSJwYXJ0aWNpcGFudCBwYXJ0aWNpcGFudC1oZWFkIiBkYXRhLXBhcnRpY2lwYW50PSJQIj48cmVjdCBmaWxsPSIjRTJFMkYwIiBoZWlnaHQ9IjMwLjQ4ODMiIHJ4PSIyLjUiIHJ5PSIyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjEwOC4zNzAxIiB4PSIxMDIuNTIiIHk9IjczLjQ4ODMiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5NC4zNzAxIiB4PSIxMDkuNTIiIHk9Ijk0LjAyMzQiPlBheW1lbnRzLXN2YzwvdGV4dD48L2c+PGcgY2xhc3M9InBhcnRpY2lwYW50IHBhcnRpY2lwYW50LXRhaWwiIGRhdGEtcGFydGljaXBhbnQ9IlAiPjxyZWN0IGZpbGw9IiNFMkUyRjAiIGhlaWdodD0iMzAuNDg4MyIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iMTA4LjM3MDEiIHg9IjEwMi41MiIgeT0iMjQxLjIxODgiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5NC4zNzAxIiB4PSIxMDkuNTIiIHk9IjI2MS43NTM5Ij5QYXltZW50cy1zdmM8L3RleHQ+PC9nPjxnIGNsYXNzPSJwYXJ0aWNpcGFudCBwYXJ0aWNpcGFudC1oZWFkIiBkYXRhLXBhcnRpY2lwYW50PSJEIj48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5MS4zNTU1IiB4PSIyNDMuMDk4NiIgeT0iMTAyLjAyMzQiPlBheW1lbnRzLURCPC90ZXh0PjxwYXRoIGQ9Ik0yNzMuNzc2NCw1Mi40ODgzIEMyNzMuNzc2NCw0Mi40ODgzIDI5MS43NzY0LDQyLjQ4ODMgMjkxLjc3NjQsNDIuNDg4MyBDMjkxLjc3NjQsNDIuNDg4MyAzMDkuNzc2NCw0Mi40ODgzIDMwOS43NzY0LDUyLjQ4ODMgTDMwOS43NzY0LDc4LjQ4ODMgQzMwOS43NzY0LDg4LjQ4ODMgMjkxLjc3NjQsODguNDg4MyAyOTEuNzc2NCw4OC40ODgzIEMyOTEuNzc2NCw4OC40ODgzIDI3My43NzY0LDg4LjQ4ODMgMjczLjc3NjQsNzguNDg4MyBMMjczLjc3NjQsNTIuNDg4MyIgZmlsbD0iI0UyRTJGMCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7Ii8+PHBhdGggZD0iTTI3My43NzY0LDUyLjQ4ODMgQzI3My43NzY0LDYyLjQ4ODMgMjkxLjc3NjQsNjIuNDg4MyAyOTEuNzc2NCw2Mi40ODgzIEMyOTEuNzc2NCw2Mi40ODgzIDMwOS43NzY0LDYyLjQ4ODMgMzA5Ljc3NjQsNTIuNDg4MyIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7Ii8+PC9nPjxnIGNsYXNzPSJwYXJ0aWNpcGFudCBwYXJ0aWNpcGFudC10YWlsIiBkYXRhLXBhcnRpY2lwYW50PSJEIj48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSI5MS4zNTU1IiB4PSIyNDMuMDk4NiIgeT0iMjU0Ljc1MzkiPlBheW1lbnRzLURCPC90ZXh0PjxwYXRoIGQ9Ik0yNzMuNzc2NCwyNjcuNzA3IEMyNzMuNzc2NCwyNTcuNzA3IDI5MS43NzY0LDI1Ny43MDcgMjkxLjc3NjQsMjU3LjcwNyBDMjkxLjc3NjQsMjU3LjcwNyAzMDkuNzc2NCwyNTcuNzA3IDMwOS43NzY0LDI2Ny43MDcgTDMwOS43NzY0LDI5My43MDcgQzMwOS43NzY0LDMwMy43MDcgMjkxLjc3NjQsMzAzLjcwNyAyOTEuNzc2NCwzMDMuNzA3IEMyOTEuNzc2NCwzMDMuNzA3IDI3My43NzY0LDMwMy43MDcgMjczLjc3NjQsMjkzLjcwNyBMMjczLjc3NjQsMjY3LjcwNyIgZmlsbD0iI0UyRTJGMCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7Ii8+PHBhdGggZD0iTTI3My43NzY0LDI2Ny43MDcgQzI3My43NzY0LDI3Ny43MDcgMjkxLjc3NjQsMjc3LjcwNyAyOTEuNzc2NCwyNzcuNzA3IEMyOTEuNzc2NCwyNzcuNzA3IDMwOS43NzY0LDI3Ny43MDcgMzA5Ljc3NjQsMjY3LjcwNyIgZmlsbD0ibm9uZSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxLjU7Ii8+PC9nPjxnIGNsYXNzPSJwYXJ0aWNpcGFudCBwYXJ0aWNpcGFudC1oZWFkIiBkYXRhLXBhcnRpY2lwYW50PSJOIj48cmVjdCBmaWxsPSIjRTJFMkYwIiBoZWlnaHQ9IjMwLjQ4ODMiIHJ4PSIyLjUiIHJ5PSIyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjEyMi41NDc5IiB4PSIzNTAuNDU0MSIgeT0iNzMuNDg4MyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwOC41NDc5IiB4PSIzNTcuNDU0MSIgeT0iOTQuMDIzNCI+Tm90aWZpY2F0aW9uLXN2YzwvdGV4dD48L2c+PGcgY2xhc3M9InBhcnRpY2lwYW50IHBhcnRpY2lwYW50LXRhaWwiIGRhdGEtcGFydGljaXBhbnQ9Ik4iPjxyZWN0IGZpbGw9IiNFMkUyRjAiIGhlaWdodD0iMzAuNDg4MyIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iMTIyLjU0NzkiIHg9IjM1MC40NTQxIiB5PSIyNDEuMjE4OCIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjEwOC41NDc5IiB4PSIzNTcuNDU0MSIgeT0iMjYxLjc1MzkiPk5vdGlmaWNhdGlvbi1zdmM8L3RleHQ+PC9nPjxnIGNsYXNzPSJtZXNzYWdlIiBkYXRhLXBhcnRpY2lwYW50LTE9IkMiIGRhdGEtcGFydGljaXBhbnQtMj0iUCI+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxNDQuNzA1MSwxMzIuMjg3MSwxNTQuNzA1MSwxMzYuMjg3MSwxNDQuNzA1MSwxNDAuMjg3MSwxNDguNzA1MSwxMzYuMjg3MSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSI0Ny42MDg0IiB4Mj0iMTUwLjcwNTEiIHkxPSIxMzYuMjg3MSIgeTI9IjEzNi4yODcxIi8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iODUuMDk2NyIgeD0iNTQuNjA4NCIgeT0iMTMxLjU0NDkiPlBPU1QgL3JlZnVuZDwvdGV4dD48L2c+PGcgY2xhc3M9Im1lc3NhZ2UiIGRhdGEtcGFydGljaXBhbnQtMT0iUCIgZGF0YS1wYXJ0aWNpcGFudC0yPSJEIj48cG9seWdvbiBmaWxsPSIjMTgxODE4IiBwb2ludHM9IjI3OS43NzY0LDE2MS41OTc3LDI4OS43NzY0LDE2NS41OTc3LDI3OS43NzY0LDE2OS41OTc3LDI4My43NzY0LDE2NS41OTc3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjE7Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIgeDE9IjE1Ni43MDUxIiB4Mj0iMjg1Ljc3NjQiIHkxPSIxNjUuNTk3NyIgeTI9IjE2NS41OTc3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTExLjA3MTMiIHg9IjE2My43MDUxIiB5PSIxNjAuODU1NSI+dXBkYXRlIHR4biBzdGF0dXM8L3RleHQ+PC9nPjxnIGNsYXNzPSJtZXNzYWdlIiBkYXRhLXBhcnRpY2lwYW50LTE9IkQiIGRhdGEtcGFydGljaXBhbnQtMj0iUCI+PHBvbHlnb24gZmlsbD0iIzE4MTgxOCIgcG9pbnRzPSIxNjcuNzA1MSwxOTAuOTA4MiwxNTcuNzA1MSwxOTQuOTA4MiwxNjcuNzA1MSwxOTguOTA4MiwxNjMuNzA1MSwxOTQuOTA4MiIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxNjEuNzA1MSIgeDI9IjI5MC43NzY0IiB5MT0iMTk0LjkwODIiIHkyPSIxOTQuOTA4MiIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjQ4LjUwODgiIHg9IjE3My43MDUxIiB5PSIxOTAuMTY2Ij5zdWNjZXNzPC90ZXh0PjwvZz48ZyBjbGFzcz0ibWVzc2FnZSIgZGF0YS1wYXJ0aWNpcGFudC0xPSJQIiBkYXRhLXBhcnRpY2lwYW50LTI9Ik4iPjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iMzk5LjcyOCwyMjAuMjE4OCw0MDkuNzI4LDIyNC4yMTg4LDM5OS43MjgsMjI4LjIxODgsNDAzLjcyOCwyMjQuMjE4OCIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDoxOyIvPjxsaW5lIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MTsiIHgxPSIxNTYuNzA1MSIgeDI9IjQwNS43MjgiIHkxPSIyMjQuMjE4OCIgeTI9IjIyNC4yMTg4Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMTQ0LjI0NDEiIHg9IjE2My43MDUxIiB5PSIyMTkuNDc2NiI+ZW1pdCBSRUZVTkRfU1VDQ0VTUzwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" alt="" /></p>
+<pre><code class="language-python"># utils/refund.py
+def refund(txn_id: str) -&gt; None:
+    """Trigger a refund and log outcome."""
+    ...
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../test2/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../test2/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../mermaid.min.js"></script>
+        <script src="../mermaid-init.js"></script>
+
+
+    </div>
+    </body>
+</html>
