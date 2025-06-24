@@ -1,0 +1,23 @@
+[book]
+title    = "System Design Docs"
+authors  = ["Alan Matthew"]
+language = "en"
+src      = "src"
+
+
+[preprocessor.plantuml]
+command       = "mdbook-plantuml"
+plantuml-cmd  = "/opt/homebrew/bin/plantuml" 
+use-data-uris = true 
+
+[preprocessor.fs-summary]
+command = "mdbook-fs-summary"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"
+
+[output]
+
+[output.html]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
