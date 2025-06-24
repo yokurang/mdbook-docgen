@@ -2,6 +2,8 @@
 name = "docgen"
 version = "0.1.0"
 edition = "2021"
+authors = ["Alan Matthew"]
+repository = "https://github.com/yokurang/mdbook-docgen"
 
 [dependencies]
 clap = { version = "4", features = ["derive"] }
